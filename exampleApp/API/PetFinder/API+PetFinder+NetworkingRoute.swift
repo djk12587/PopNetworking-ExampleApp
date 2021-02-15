@@ -21,7 +21,7 @@ extension PetFinderRoute {
     var clientId: String { "B5JZpOg8HskUlBY3WdioJ4yr6EBI3VUvQYpPs9DuLuznGQJUr1" }
     var clientSecret: String { "cfrjhisHn4akQLq1slGMg5kMViXmyvrH0RDvnoht" }
 
-    var headers: [String : String]? {
+    var headers: NetworkingRouteHttpHeaders? {
         guard requiresAuthentication else { return nil }
 
         let storedAccess = API.PetFinder.StoredApiAccess.apiAccess
