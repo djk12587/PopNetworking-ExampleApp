@@ -8,6 +8,7 @@
 import Foundation
 import PopNetworking
 
+///https://github.com/15Dkatz/official_joke_api
 protocol JokesRoute: NetworkingRoute {}
 
 extension JokesRoute {

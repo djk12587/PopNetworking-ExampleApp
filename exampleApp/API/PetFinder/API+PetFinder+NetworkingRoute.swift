@@ -8,6 +8,7 @@
 import Foundation
 import PopNetworking
 
+///https://www.petfinder.com/developers/v2/docs/
 protocol PetFinderRoute: NetworkingRoute {
     var clientId: String { get }
     var clientSecret: String { get }
