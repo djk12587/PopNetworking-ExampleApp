@@ -10,16 +10,12 @@ import PopNetworking
 
 ///https://www.petfinder.com/developers/v2/docs/
 protocol PetFinderRoute: NetworkingRoute {
-    var clientId: String { get }
-    var clientSecret: String { get }
     var requiresAuthentication: Bool { get }
 }
 
 extension PetFinderRoute {
 
     var baseURL: String { "https://api.petfinder.com" }
-    var clientId: String { "B5JZpOg8HskUlBY3WdioJ4yr6EBI3VUvQYpPs9DuLuznGQJUr1" }
-    var clientSecret: String { "cfrjhisHn4akQLq1slGMg5kMViXmyvrH0RDvnoht" }
 
     var headers: NetworkingRouteHttpHeaders? {
         guard requiresAuthentication else { return nil }

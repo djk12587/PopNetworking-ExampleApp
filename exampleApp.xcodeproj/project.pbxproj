@@ -19,7 +19,6 @@
 		E07A5F3D25D9C9EA008AC835 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F3C25D9C9EA008AC835 /* Models.swift */; };
 		E07A5F4025D9CAAE008AC835 /* API+PetFinder+Networking+Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F3F25D9CAAE008AC835 /* API+PetFinder+Networking+Routes.swift */; };
 		E07A5F4725D9CD44008AC835 /* API+PetFinder+Networking+Sessions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F4625D9CD44008AC835 /* API+PetFinder+Networking+Sessions.swift */; };
-		E07A5F4C25D9CE83008AC835 /* UserDefaultsPropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F4B25D9CE83008AC835 /* UserDefaultsPropertyWrapper.swift */; };
 		E07A5F4F25D9CF16008AC835 /* API+PetFinder+Networking+StoredApiAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F4E25D9CF16008AC835 /* API+PetFinder+Networking+StoredApiAccess.swift */; };
 		E07A5F5225D9D04F008AC835 /* API+PetFinder+Networking+Reauthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F5125D9D04F008AC835 /* API+PetFinder+Networking+Reauthentication.swift */; };
 		E07A5F5925D9DA9A008AC835 /* API+Jokes+NetworkingRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F5825D9DA9A008AC835 /* API+Jokes+NetworkingRoute.swift */; };
@@ -42,7 +41,6 @@
 		E07A5F3C25D9C9EA008AC835 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		E07A5F3F25D9CAAE008AC835 /* API+PetFinder+Networking+Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+PetFinder+Networking+Routes.swift"; sourceTree = "<group>"; };
 		E07A5F4625D9CD44008AC835 /* API+PetFinder+Networking+Sessions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+PetFinder+Networking+Sessions.swift"; sourceTree = "<group>"; };
-		E07A5F4B25D9CE83008AC835 /* UserDefaultsPropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsPropertyWrapper.swift; sourceTree = "<group>"; };
 		E07A5F4E25D9CF16008AC835 /* API+PetFinder+Networking+StoredApiAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+PetFinder+Networking+StoredApiAccess.swift"; sourceTree = "<group>"; };
 		E07A5F5125D9D04F008AC835 /* API+PetFinder+Networking+Reauthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+PetFinder+Networking+Reauthentication.swift"; sourceTree = "<group>"; };
 		E07A5F5825D9DA9A008AC835 /* API+Jokes+NetworkingRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Jokes+NetworkingRoute.swift"; sourceTree = "<group>"; };
@@ -85,7 +83,6 @@
 				E07A5F2A25D9C7AD008AC835 /* API */,
 				E07A5F3325D9C922008AC835 /* Models */,
 				E07A5F6C25D9DFEF008AC835 /* Supporting FIles */,
-				E07A5F4A25D9CE6B008AC835 /* Utilities */,
 				E07A5F1125D9C5B2008AC835 /* AppDelegate.swift */,
 				E07A5F1325D9C5B2008AC835 /* SceneDelegate.swift */,
 				E07A5F1525D9C5B2008AC835 /* ViewController.swift */,
@@ -123,14 +120,6 @@
 				E07A5F3825D9C9D8008AC835 /* Models+PetFinder.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		E07A5F4A25D9CE6B008AC835 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				E07A5F4B25D9CE83008AC835 /* UserDefaultsPropertyWrapper.swift */,
-			);
-			path = Utilities;
 			sourceTree = "<group>";
 		};
 		E07A5F5725D9DA4A008AC835 /* Jokes */ = {
@@ -233,7 +222,6 @@
 				E07A5F4725D9CD44008AC835 /* API+PetFinder+Networking+Sessions.swift in Sources */,
 				E07A5F6125D9DB4F008AC835 /* API+Jokes+Networking+Session.swift in Sources */,
 				E07A5F4025D9CAAE008AC835 /* API+PetFinder+Networking+Routes.swift in Sources */,
-				E07A5F4C25D9CE83008AC835 /* UserDefaultsPropertyWrapper.swift in Sources */,
 				E07A5F1625D9C5B2008AC835 /* ViewController.swift in Sources */,
 				E07A5F1225D9C5B2008AC835 /* AppDelegate.swift in Sources */,
 				E07A5F6625D9DC23008AC835 /* Models+Jokes.swift in Sources */,

@@ -11,7 +11,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        addInstructionLabel()
+        setupUI()
 
         API.Jokes.Routes.GetJoke().request { result in
             switch result {
@@ -50,14 +50,15 @@ class ViewController: UIViewController {
         }
     }
 
-    private func addInstructionLabel() {
-        view.backgroundColor = .white
+    private func setupUI() {
+        view.backgroundColor = .systemBackground
 
         let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.text = "Nothing to see here. \n\nCheckout ViewController.swift to see PopNetworking in action."
         label.textAlignment = .center
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(label)

@@ -13,6 +13,5 @@ protocol JokesRoute: NetworkingRoute {}
 
 extension JokesRoute {
     var baseURL: String { "https://official-joke-api.appspot.com" }
-    var headers: NetworkingRouteHttpHeaders? { nil }
     var session: NetworkingSession { API.Jokes.Session.standard }
 }

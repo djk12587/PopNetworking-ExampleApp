@@ -12,9 +12,7 @@ extension API.PetFinder {
 }
 
 extension API.PetFinder.StoredApiAccess {
-    @UserDefaults(key: "Models.PetFinder.ApiAccess",
-                  defaultValue: Models.PetFinder.ApiAccess(tokenType: "Bearer",
-                                                           expiresIn: 0,
-                                                           accessToken: "invalid"))
-    static var apiAccess: Models.PetFinder.ApiAccess
+    static var apiAccess = Models.PetFinder.ApiAccess(tokenType: "Bearer",
+                                                      expiresIn: 0,
+                                                      accessToken: "invalid")
 }
