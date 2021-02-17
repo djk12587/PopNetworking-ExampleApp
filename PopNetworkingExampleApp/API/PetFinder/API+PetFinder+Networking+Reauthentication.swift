@@ -12,8 +12,6 @@ extension API.PetFinder {
 
     class ReauthenticationHandler: NetworkingRequestInterceptor {
 
-        private typealias RefreshCompletion = (_ succeeded: Bool) -> Void
-
         private let lock = NSLock()
         private var isRefreshingToken = false
         private var unAuthorizedRequestsToRetry: [(NetworkingRequestRetrierResult) -> Void] = []
@@ -59,7 +57,7 @@ extension API.PetFinder {
             //We only want performRefresh to get called one at a time
             guard !isRefreshingToken else { return }
 
-            performRefresh { [weak self] succeeded in
+            performReauthentication { [weak self] succeeded in
                 guard let self = self else { return }
                 self.lock.lock(); defer { self.lock.unlock() }
 
@@ -71,7 +69,7 @@ extension API.PetFinder {
 
         // MARK: - Private - Authenticate with your API
 
-        private func performRefresh(completion: @escaping RefreshCompletion) {
+        private func performReauthentication(completion: @escaping (_ succeeded: Bool) -> Void) {
             guard !isRefreshingToken else { return }
 
             isRefreshingToken = true
