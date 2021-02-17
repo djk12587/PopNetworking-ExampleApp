@@ -14,7 +14,7 @@ extension API.PetFinder {
 
         private let lock = NSLock()
         private var isRefreshingToken = false
-        private var unAuthorizedRequestsToRetry: [(NetworkingRequestRetrierResult) -> Void] = []
+        private var requestsWaitingForReauthentication: [(NetworkingRequestRetrierResult) -> Void] = []
         private let maxRetryCount = 3
 
         // MARK: - RequestAdapter
@@ -52,7 +52,7 @@ extension API.PetFinder {
             }
 
             //hold onto the completion block so we can wait for performRefresh to complete
-            unAuthorizedRequestsToRetry.append(completion)
+            requestsWaitingForReauthentication.append(completion)
 
             //We only want performRefresh to get called one at a time
             guard !isRefreshingToken else { return }
@@ -62,8 +62,8 @@ extension API.PetFinder {
                 self.lock.lock(); defer { self.lock.unlock() }
 
                 //trigger the cached completion blocks. This informs the request if it needs to be retried or not.
-                self.unAuthorizedRequestsToRetry.forEach { $0(succeeded ? .retry : .doNotRetry) }
-                self.unAuthorizedRequestsToRetry.removeAll()
+                self.requestsWaitingForReauthentication.forEach { $0(succeeded ? .retry : .doNotRetry) }
+                self.requestsWaitingForReauthentication.removeAll()
             }
         }
 
