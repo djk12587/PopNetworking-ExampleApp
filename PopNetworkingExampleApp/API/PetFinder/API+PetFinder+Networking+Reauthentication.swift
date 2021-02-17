@@ -54,7 +54,7 @@ extension API.PetFinder {
             //hold onto the completion block so we can wait for performRefresh to complete
             requestsWaitingForReauthentication.append(completion)
 
-            //We only want performRefresh to get called one at a time
+            //performReauthentication should run only one at a time
             guard !isRefreshingToken else { return }
 
             performReauthentication { [weak self] succeeded in
