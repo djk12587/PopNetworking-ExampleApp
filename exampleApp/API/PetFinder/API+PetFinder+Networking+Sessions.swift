@@ -22,7 +22,7 @@ extension API.PetFinder.Session {
         return session
     }()
 
-    ///Use this NetworkingSession for any PetFinder endpoints that DO NOT require authentication
+    ///Use this NetworkingSession for any PetFinder endpoints that DOES NOT require authentication
     static let standard: NetworkingSession = {
         let session = NetworkingSession()
         return session
