@@ -29,7 +29,7 @@ extension PetFinderRoute {
             return API.PetFinder.Session.authenticationSession
         }
         else {
-            return API.PetFinder.Session.standard
+            return NetworkingSession.shared
         }
     }
 }

@@ -21,10 +21,4 @@ extension API.PetFinder.Session {
                                         requestRetrier: reauthenticationHandler)
         return session
     }()
-
-    ///Use this NetworkingSession for any PetFinder endpoints that DOES NOT require authentication
-    static let standard: NetworkingSession = {
-        let session = NetworkingSession()
-        return session
-    }()
 }

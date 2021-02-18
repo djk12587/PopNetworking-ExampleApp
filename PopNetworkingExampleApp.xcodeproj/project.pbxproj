@@ -23,7 +23,6 @@
 		E07A5F5225D9D04F008AC835 /* API+PetFinder+Networking+Reauthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F5125D9D04F008AC835 /* API+PetFinder+Networking+Reauthentication.swift */; };
 		E07A5F5925D9DA9A008AC835 /* API+Jokes+NetworkingRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F5825D9DA9A008AC835 /* API+Jokes+NetworkingRoute.swift */; };
 		E07A5F5E25D9DAE7008AC835 /* API+Jokes+Networking+Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F5D25D9DAE7008AC835 /* API+Jokes+Networking+Routes.swift */; };
-		E07A5F6125D9DB4F008AC835 /* API+Jokes+Networking+Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F6025D9DB4F008AC835 /* API+Jokes+Networking+Session.swift */; };
 		E07A5F6625D9DC23008AC835 /* Models+Jokes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F6525D9DC23008AC835 /* Models+Jokes.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,7 +44,6 @@
 		E07A5F5125D9D04F008AC835 /* API+PetFinder+Networking+Reauthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+PetFinder+Networking+Reauthentication.swift"; sourceTree = "<group>"; };
 		E07A5F5825D9DA9A008AC835 /* API+Jokes+NetworkingRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Jokes+NetworkingRoute.swift"; sourceTree = "<group>"; };
 		E07A5F5D25D9DAE7008AC835 /* API+Jokes+Networking+Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Jokes+Networking+Routes.swift"; sourceTree = "<group>"; };
-		E07A5F6025D9DB4F008AC835 /* API+Jokes+Networking+Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Jokes+Networking+Session.swift"; sourceTree = "<group>"; };
 		E07A5F6525D9DC23008AC835 /* Models+Jokes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+Jokes.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				E07A5F5D25D9DAE7008AC835 /* API+Jokes+Networking+Routes.swift */,
-				E07A5F6025D9DB4F008AC835 /* API+Jokes+Networking+Session.swift */,
 				E07A5F5825D9DA9A008AC835 /* API+Jokes+NetworkingRoute.swift */,
 			);
 			path = Jokes;
@@ -220,7 +217,6 @@
 				E07A5F3925D9C9D8008AC835 /* Models+PetFinder.swift in Sources */,
 				E07A5F5225D9D04F008AC835 /* API+PetFinder+Networking+Reauthentication.swift in Sources */,
 				E07A5F4725D9CD44008AC835 /* API+PetFinder+Networking+Sessions.swift in Sources */,
-				E07A5F6125D9DB4F008AC835 /* API+Jokes+Networking+Session.swift in Sources */,
 				E07A5F4025D9CAAE008AC835 /* API+PetFinder+Networking+Routes.swift in Sources */,
 				E07A5F1625D9C5B2008AC835 /* ViewController.swift in Sources */,
 				E07A5F1225D9C5B2008AC835 /* AppDelegate.swift in Sources */,
@@ -432,7 +428,7 @@
 			repositoryURL = "https://github.com/djk12587/PopNetworking";
 			requirement = {
 				kind = exactVersion;
-				version = 0.0.4;
+				version = 0.0.5;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

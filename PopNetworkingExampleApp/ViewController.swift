@@ -40,7 +40,8 @@ class ViewController: UIViewController {
             }
         }
 
-        API.PetFinder.Routes.GetAnimal(animalId: 50548438).request { result in
+        //You might see a 404 error here if the supplied animalId no longer exists. Grab an animalId from the API.PetFinder.Routes.GetAnimals() response and plug it in here.
+        API.PetFinder.Routes.GetAnimal(animalId: 50572220).request { result in
             switch result {
                 case .success(let animal):
                     print(animal)
