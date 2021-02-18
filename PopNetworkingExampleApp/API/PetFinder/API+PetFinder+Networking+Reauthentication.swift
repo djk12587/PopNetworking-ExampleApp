@@ -19,7 +19,7 @@ extension API.PetFinder {
 
         // MARK: - RequestAdapter
 
-        ///This gives you a chance to modify the `urlRequest` before it gets sent over the wire
+        ///This gives you a chance to modify the `urlRequest` before it gets sent over the wire. This is the spot where you update the authorization for the `urlRequest`
         func adapt(urlRequest: URLRequest, for session: URLSession) -> URLRequest {
 
             let storedApiAccess = API.PetFinder.StoredApiAccess.apiAccess
@@ -51,7 +51,7 @@ extension API.PetFinder {
                 return
             }
 
-            //hold onto the completion block so we can wait for performRefresh to complete
+            //hold onto the completion block so we can wait for performReauthentication to complete
             requestsWaitingForReauthentication.append(completion)
 
             //performReauthentication should run only one at a time
