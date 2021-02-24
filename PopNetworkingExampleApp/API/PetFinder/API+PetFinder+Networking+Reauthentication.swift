@@ -20,21 +20,21 @@ extension API.PetFinder {
         // MARK: - RequestAdapter
 
         ///This gives you a chance to modify the `urlRequest` before it gets sent over the wire. This is the spot where you update the authorization for the `urlRequest`
-        func adapt(urlRequest: URLRequest, for session: URLSession) -> URLRequest {
-
+        func adapt(urlRequest: URLRequest, for session: URLSession, completion: @escaping (Result<URLRequest, Error>) -> Void) {
             let storedApiAccess = API.PetFinder.StoredApiAccess.apiAccess
             let savedAccesToken = "\(storedApiAccess.tokenType) \(storedApiAccess.accessToken)"
 
             //Check if the urlRequest's accessToken differs from what the app has saved
             guard let requestsAccessToken = urlRequest.allHTTPHeaderFields?["Authorization"],
                   requestsAccessToken != savedAccesToken else {
-                return urlRequest
+                completion(.success(urlRequest))
+                return
             }
 
             var request = urlRequest
             //Update the requests Authorization header with the new accessToken
             request.allHTTPHeaderFields?["Authorization"] = savedAccesToken
-            return request
+            completion(.success(request))
         }
 
         // MARK: - RequestRetrier
