@@ -19,7 +19,7 @@ extension API.PetFinder {
         // MARK: - RequestAdapter
 
         ///This gives you a chance to modify the `urlRequest` before it gets sent over the wire. This is the spot where you update the authorization for the `urlRequest`. Or, if you know the access token is expired, then throw an error. That error will get sent to the retry() function allowing you to refresh
-        func adapt(urlRequest: URLRequest, for session: URLSession) throws -> URLRequest {
+        func adapt(urlRequest: URLRequest) throws -> URLRequest {
             let storedApiAccess = API.PetFinder.StoredApiAccess.apiAccess
             let savedAccesToken = "\(storedApiAccess.tokenType) \(storedApiAccess.accessToken)"
 
