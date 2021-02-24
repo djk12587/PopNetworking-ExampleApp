@@ -19,22 +19,29 @@ extension API.PetFinder {
 
         // MARK: - RequestAdapter
 
-        ///This gives you a chance to modify the `urlRequest` before it gets sent over the wire. This is the spot where you update the authorization for the `urlRequest`
-        func adapt(urlRequest: URLRequest, for session: URLSession, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+        ///This gives you a chance to modify the `urlRequest` before it gets sent over the wire. This is the spot where you update the authorization for the `urlRequest`. Or, if you know the access token is expired, then throw an error. That error will get sent to the retry() function allowing you to refresh
+        func adapt(urlRequest: URLRequest, for session: URLSession) throws -> URLRequest {
             let storedApiAccess = API.PetFinder.StoredApiAccess.apiAccess
             let savedAccesToken = "\(storedApiAccess.tokenType) \(storedApiAccess.accessToken)"
 
-            //Check if the urlRequest's accessToken differs from what the app has saved
-            guard let requestsAccessToken = urlRequest.allHTTPHeaderFields?["Authorization"],
-                  requestsAccessToken != savedAccesToken else {
-                completion(.success(urlRequest))
-                return
+            guard let requestsAccessToken = urlRequest.allHTTPHeaderFields?["Authorization"] else {
+                //urlRequest doesnt have the Authorization header, so there is no need to modify it
+                return urlRequest
             }
 
-            var request = urlRequest
-            //Update the requests Authorization header with the new accessToken
-            request.allHTTPHeaderFields?["Authorization"] = savedAccesToken
-            completion(.success(request))
+            guard !savedAccesToken.contains("Unauthorized") else {
+                //We know the access token is unauthorized, so throw an error. This triggers retry() to be called
+                throw NSError(domain: "Unauthorized", code: 401, userInfo: nil)
+            }
+
+            guard requestsAccessToken == savedAccesToken else {
+                var adaptedRequest = urlRequest
+                //update the adaptedRequest's Authorization header with the savedAccesToken
+                adaptedRequest.allHTTPHeaderFields?["Authorization"] = savedAccesToken
+                return adaptedRequest
+            }
+
+            return urlRequest
         }
 
         // MARK: - RequestRetrier
@@ -42,10 +49,9 @@ extension API.PetFinder {
         ///If your request fails due to 401 error, then reauthenticate with the API & return `.retry` to retry the `urlRequest`
         func retry(urlRequest: URLRequest, dueTo error: Error, urlResponse: HTTPURLResponse, retryCount: Int, completion: @escaping (NetworkingRequestRetrierResult) -> Void) {
 
-            lock.lock(); defer { lock.unlock() }
-
             //Check if the error is due to unauthorized access
-            guard urlResponse.statusCode == 401,
+            let isUnauthorized = urlResponse.statusCode == 401 || (error as NSError).code == 401
+            guard isUnauthorized,
                   retryCount < maxRetryCount else {
                 completion(.doNotRetry)
                 return
@@ -59,11 +65,13 @@ extension API.PetFinder {
 
             performReauthentication { [weak self] succeeded in
                 guard let self = self else { return }
-                self.lock.lock(); defer { self.lock.unlock() }
+
+                //this retry() function can be recursive. So, we want to make a copy of requestsWaitingForReauthentication, then call removeAll() on requestsWaitingForReauthentication.
+                let temporaryCopy = self.requestsWaitingForReauthentication
+                self.requestsWaitingForReauthentication.removeAll()
 
                 //trigger the cached completion blocks. This informs the request if it needs to be retried or not.
-                self.requestsWaitingForReauthentication.forEach { $0(succeeded ? .retry : .doNotRetry) }
-                self.requestsWaitingForReauthentication.removeAll()
+                temporaryCopy.forEach { $0(succeeded ? .retry : .doNotRetry) }
             }
         }
 

@@ -14,5 +14,5 @@ extension API.PetFinder {
 extension API.PetFinder.StoredApiAccess {
     static var apiAccess = Models.PetFinder.ApiAccess(tokenType: "Bearer",
                                                       expiresIn: 0,
-                                                      accessToken: "invalid")
+                                                      accessToken: "Unauthorized")
 }
