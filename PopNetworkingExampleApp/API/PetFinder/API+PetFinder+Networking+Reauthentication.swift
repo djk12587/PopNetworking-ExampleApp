@@ -12,7 +12,6 @@ extension API.PetFinder {
 
     class ReauthenticationHandler: NetworkingRequestInterceptor {
 
-        private let lock = NSLock()
         private var isRefreshingToken = false
         private var requestsWaitingForReauthentication: [(NetworkingRequestRetrierResult) -> Void] = []
         private let maxRetryCount = 3
