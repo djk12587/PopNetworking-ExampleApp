@@ -12,5 +12,5 @@ import PopNetworking
 protocol JokesRoute: NetworkingRoute {}
 
 extension JokesRoute {
-    var baseURL: String { "https://official-joke-api.appspot.com" }
+    var baseUrl: String { "https://official-joke-api.appspot.com" }
 }

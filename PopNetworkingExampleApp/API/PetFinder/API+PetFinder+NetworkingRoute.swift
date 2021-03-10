@@ -15,7 +15,7 @@ protocol PetFinderRoute: NetworkingRoute {
 
 extension PetFinderRoute {
 
-    var baseURL: String { "https://api.petfinder.com" }
+    var baseUrl: String { "https://api.petfinder.com" }
 
     var headers: NetworkingRouteHttpHeaders? {
         guard requiresAuthentication else { return nil }
