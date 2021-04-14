@@ -31,6 +31,24 @@ class ViewController: UIViewController {
             }
         }
 
+        API.Jokes.Routes.GetJokeMappable().request { result in
+            switch result {
+                case .success(let joke):
+                    print(joke)
+                case .failure(let error):
+                    print(error)
+            }
+        }
+
+        API.Jokes.Routes.GetTenJokesMappable().request { result in
+            switch result {
+                case .success(let jokes):
+                    print(jokes)
+                case .failure(let error):
+                    print(error)
+            }
+        }
+
         API.PetFinder.Routes.GetAnimals(animalType: .bird).request { result in
             switch result {
                 case .success(let birds):
