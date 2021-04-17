@@ -427,8 +427,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/djk12587/PopNetworking";
 			requirement = {
-				branch = "feature/view-model-response-serializer";
-				kind = branch;
+				kind = exactVersion;
+				version = 0.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
