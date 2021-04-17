@@ -22,6 +22,18 @@ class ViewController: UIViewController {
             }
         }
 
+        API.Jokes.Routes.GetJoke(mockResult: .success(Models.Jokes.Joke(id: 0,
+                                                                        type: "mock joke",
+                                                                        setup: "Have you heard of the band 923 Megabytes?",
+                                                                        punchline: "Probably not, they haven't had a gig yet."))).request { result in
+            switch result {
+                case .success(let mockedJoke):
+                    print(mockedJoke)
+                case .failure(let error):
+                    print(error)
+            }
+        }
+
         API.Jokes.Routes.GetTenJokes().request { result in
             switch result {
                 case .success(let jokes):
@@ -31,19 +43,10 @@ class ViewController: UIViewController {
             }
         }
 
-        API.Jokes.Routes.GetJokeMappable().request { result in
+        API.Jokes.Routes.GetTenJokesMappableResponseModelExample().request { result in
             switch result {
-                case .success(let joke):
-                    print(joke)
-                case .failure(let error):
-                    print(error)
-            }
-        }
-
-        API.Jokes.Routes.GetTenJokesMappable().request { result in
-            switch result {
-                case .success(let jokes):
-                    print(jokes)
+                case .success(let mappableJokes):
+                    print(mappableJokes)
                 case .failure(let error):
                     print(error)
             }

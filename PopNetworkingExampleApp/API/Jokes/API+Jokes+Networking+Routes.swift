@@ -24,20 +24,11 @@ extension API.Jokes.Routes {
         let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
 
         typealias ResponseSerializer = NetworkingResponseSerializers.DecodableResponseSerializer<Models.Jokes.Joke>
-        let responseSerializer = ResponseSerializer()
-    }
+        let responseSerializer: ResponseSerializer
 
-    struct GetJokeMappable: JokesRoute {
-
-        let path = "/jokes/random"
-        let method: NetworkingRouteHttpMethod = .get
-        let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
-
-        typealias ResponseSerializer = NetworkingResponseSerializers.MappableModelResponse<Models.Jokes.JokeViewModel,
-                                                                                           Models.Jokes.JokeViewModelError,
-                                                                                           Models.Jokes.Joke,
-                                                                                           Models.Jokes.JokeApiError>
-        let responseSerializer = ResponseSerializer()
+        init(mockResult: Result<ResponseSerializer.SerializedObject, Error>? = nil) {
+            responseSerializer = ResponseSerializer(mockedResult: mockResult)
+        }
     }
 
     struct GetTenJokes: JokesRoute {
@@ -49,15 +40,13 @@ extension API.Jokes.Routes {
         let responseSerializer = ResponseSerializer()
     }
 
-    struct GetTenJokesMappable: JokesRoute {
+    struct GetTenJokesMappableResponseModelExample: JokesRoute {
         let path = "/jokes/ten"
         let method: NetworkingRouteHttpMethod = .get
         let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
 
         typealias ResponseSerializer = NetworkingResponseSerializers.MappableModelResponse<[Models.Jokes.JokeViewModel],
-                                                                                           Models.Jokes.JokeViewModelError,
-                                                                                           [Models.Jokes.Joke],
-                                                                                           Models.Jokes.JokeApiError>
+                                                                                           [Models.Jokes.Joke]>
         let responseSerializer = ResponseSerializer()
     }
 }

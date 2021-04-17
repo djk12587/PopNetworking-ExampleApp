@@ -23,29 +23,12 @@ extension Models.Jokes {
     struct JokeViewModel: MappableModel  {
         typealias SourceModel = Joke
 
-        let anotherId: Int
-        let aPunchline: String
+        let setup: String
+        let punchline: String
 
         init(sourceModel: Models.Jokes.Joke) {
-            anotherId = sourceModel.id
-            aPunchline = sourceModel.punchline
-        }
-    }
-}
-
-extension Models.Jokes {
-    struct JokeApiError: Codable, Error {
-        let code: Int
-        let failureReason: String
-    }
-
-    struct JokeViewModelError: MappableModel, Error  {
-        typealias SourceModel = JokeApiError
-
-        let reason: String
-
-        init(sourceModel: JokeApiError) {
-            reason = sourceModel.failureReason
+            self.setup = sourceModel.setup
+            self.punchline = sourceModel.punchline
         }
     }
 }
