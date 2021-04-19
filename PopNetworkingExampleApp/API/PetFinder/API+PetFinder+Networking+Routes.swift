@@ -30,7 +30,7 @@ extension API.PetFinder.Routes {
         }
 
         typealias ResponseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.ApiAccess, Models.PetFinder.ApiError>
-        let responseSerializer = ResponseSerializer()
+        let responseSerializationMode: NetworkingResponseSerializationMode = .standard(ResponseSerializer())
     }
 
     struct GetAnimals: PetFinderRoute {
@@ -45,7 +45,7 @@ extension API.PetFinder.Routes {
         }
         
         typealias ResponseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.GetAnimalsResponse, Models.PetFinder.ApiError>
-        let responseSerializer = ResponseSerializer()
+        let responseSerializationMode: NetworkingResponseSerializationMode = .standard(ResponseSerializer())
 
         enum AnimalType: String {
             case cat = "Cat"
@@ -63,6 +63,6 @@ extension API.PetFinder.Routes {
         let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
 
         typealias ResponseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.GetAnimalResponse, Models.PetFinder.ApiError>
-        let responseSerializer = ResponseSerializer()
+        let responseSerializationMode: NetworkingResponseSerializationMode = .standard(ResponseSerializer())
     }
 }

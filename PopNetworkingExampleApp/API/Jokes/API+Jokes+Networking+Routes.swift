@@ -23,11 +23,20 @@ extension API.Jokes.Routes {
         let method: NetworkingRouteHttpMethod = .get
         let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
 
-        typealias ResponseSerializer = NetworkingResponseSerializers.DecodableResponseSerializer<Models.Jokes.Joke>
-        let responseSerializer: ResponseSerializer
+        let overrideResult: Bool
 
-        init(mockResult: Result<ResponseSerializer.SerializedObject, Error>? = nil) {
-            responseSerializer = ResponseSerializer(mockedResult: mockResult)
+        typealias ResponseSerializer = NetworkingResponseSerializers.DecodableResponseSerializer<Models.Jokes.Joke>
+        var responseSerializationMode: NetworkingResponseSerializationMode<ResponseSerializer> {
+            if overrideResult {
+                return .override { networkingRawResponse in
+                    .success(Models.Jokes.Joke(id: 0, type: "Mocked Joke",
+                                               setup: "Have you heard of the band 923 Megabytes?",
+                                               punchline: "Probably not, they haven't had a gig yet."))
+                }
+            }
+            else {
+                return .standard(ResponseSerializer())
+            }
         }
     }
 
@@ -37,7 +46,7 @@ extension API.Jokes.Routes {
         let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
 
         typealias ResponseSerializer = NetworkingResponseSerializers.DecodableResponseSerializer<[Models.Jokes.Joke]>
-        let responseSerializer = ResponseSerializer()
+        let responseSerializationMode: NetworkingResponseSerializationMode = .standard(ResponseSerializer())
     }
 
     struct GetTenJokesMappableResponseModelExample: JokesRoute {
@@ -47,6 +56,6 @@ extension API.Jokes.Routes {
 
         typealias ResponseSerializer = NetworkingResponseSerializers.MappableModelResponse<[Models.Jokes.JokeViewModel],
                                                                                            [Models.Jokes.Joke]>
-        let responseSerializer = ResponseSerializer()
+        let responseSerializationMode: NetworkingResponseSerializationMode = .standard(ResponseSerializer())
     }
 }

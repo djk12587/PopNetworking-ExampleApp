@@ -13,22 +13,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
 
-        API.Jokes.Routes.GetJoke().request { result in
+        API.Jokes.Routes.GetJoke(overrideResult: true).request { result in
             switch result {
                 case .success(let joke):
                     print(joke)
-                case .failure(let error):
-                    print(error)
-            }
-        }
-
-        API.Jokes.Routes.GetJoke(mockResult: .success(Models.Jokes.Joke(id: 0,
-                                                                        type: "mock joke",
-                                                                        setup: "Have you heard of the band 923 Megabytes?",
-                                                                        punchline: "Probably not, they haven't had a gig yet."))).request { result in
-            switch result {
-                case .success(let mockedJoke):
-                    print(mockedJoke)
                 case .failure(let error):
                     print(error)
             }
