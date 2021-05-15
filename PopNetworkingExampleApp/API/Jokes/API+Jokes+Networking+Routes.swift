@@ -54,8 +54,8 @@ extension API.Jokes.Routes {
         let method: NetworkingRouteHttpMethod = .get
         let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
 
-        typealias ResponseSerializer = NetworkingResponseSerializers.MappableModelResponse<[Models.Jokes.JokeViewModel],
-                                                                                           [Models.Jokes.Joke]>
+        typealias ResponseSerializer = NetworkingResponseSerializers.MappableModelResponseSerializer<[Models.Jokes.JokeViewModel],
+                                                                                                     [Models.Jokes.Joke]>
         let responseSerializationMode: NetworkingResponseSerializationMode = .standard(ResponseSerializer())
     }
 }
