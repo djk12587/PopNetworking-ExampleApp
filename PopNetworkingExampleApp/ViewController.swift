@@ -31,15 +31,6 @@ class ViewController: UIViewController {
             }
         }
 
-        API.Jokes.Routes.GetTenJokesMappableResponseModelExample().request { result in
-            switch result {
-                case .success(let mappableJokes):
-                    print(mappableJokes)
-                case .failure(let error):
-                    print(error)
-            }
-        }
-
         API.PetFinder.Routes.GetAnimals(animalType: .bird).request { result in
             switch result {
                 case .success(let birds):
@@ -49,11 +40,19 @@ class ViewController: UIViewController {
             }
         }
 
-        //You might see a 404 error here if the supplied animalId no longer exists. Grab an animalId from the API.PetFinder.Routes.GetAnimals() response and plug it in here.
-        API.PetFinder.Routes.GetAnimal(animalId: 50572220).request { result in
-            switch result {
-                case .success(let animal):
-                    print(animal)
+        API.Jokes.Routes.GetJoke(overrideResult: false).and(run: API.Jokes.Routes.GetJoke(overrideResult: false)) { aggregatedResult in
+            switch aggregatedResult {
+                case .success(let twoJokes):
+                    print(twoJokes)
+                case .failure(let error):
+                    print(error)
+            }
+        }
+
+        API.PetFinder.Routes.GetAnimals(animalType: .dog).andThen(run: API.PetFinder.Routes.GetRandomAnimal.self) { randomAnimalResult in
+            switch randomAnimalResult {
+                case .success(let randomAnimal):
+                    print(randomAnimal)
                 case .failure(let error):
                     print(error)
             }

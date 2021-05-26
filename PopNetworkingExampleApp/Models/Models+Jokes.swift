@@ -19,16 +19,4 @@ extension Models.Jokes {
         let setup: String
         let punchline: String
     }
-
-    struct JokeViewModel: MappableModel  {
-        typealias SourceModel = Joke
-
-        let setup: String
-        let punchline: String
-
-        init(sourceModel: Models.Jokes.Joke) {
-            self.setup = sourceModel.setup
-            self.punchline = sourceModel.punchline
-        }
-    }
 }

@@ -65,4 +65,29 @@ extension API.PetFinder.Routes {
         typealias ResponseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.GetAnimalResponse, Models.PetFinder.ApiError>
         let responseSerializationMode: NetworkingResponseSerializationMode = .standard(ResponseSerializer())
     }
+
+    struct GetRandomAnimal: PetFinderRoute, DependentNetworkingRoute {
+
+        enum GetRandomAnimalError: Error {
+            case animalIdMissing
+        }
+
+        typealias ParentRoute = GetAnimals
+        typealias RequiredParams = Void
+
+        let animalId: Int
+
+        var path: String { "/v2/animals/\(animalId)"}
+        let method: NetworkingRouteHttpMethod = .get
+        let requiresAuthentication = true
+        let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
+
+        typealias ResponseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.GetAnimalResponse, Models.PetFinder.ApiError>
+        let responseSerializationMode: NetworkingResponseSerializationMode = .standard(ResponseSerializer())
+
+        init(parentResponseModel: Models.PetFinder.GetAnimalsResponse, with requiredParams: Void? = nil) throws {
+            guard let randomAnimalId = parentResponseModel.animals.randomElement()?.id else { throw GetRandomAnimalError.animalIdMissing }
+            animalId = randomAnimalId
+        }
+    }
 }
