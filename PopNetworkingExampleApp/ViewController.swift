@@ -49,10 +49,11 @@ class ViewController: UIViewController {
             }
         }
 
-        API.PetFinder.Routes.GetAnimals(animalType: .dog).andThen(run: API.PetFinder.Routes.GetRandomAnimal.self) { randomAnimalResult in
-            switch randomAnimalResult {
-                case .success(let randomAnimal):
-                    print(randomAnimal)
+        API.PetFinder.Routes.GetAnimals(animalType: .dog).andThen(run: API.PetFinder.Routes.GetRandomAnimal.self) { aggregatedResult in
+            switch aggregatedResult {
+                case .success(let dogsAndRandomDog):
+                    print("dog count: \(dogsAndRandomDog.0.animals.count)")
+                    print("random dog: \(dogsAndRandomDog.1)")
                 case .failure(let error):
                     print(error)
             }
