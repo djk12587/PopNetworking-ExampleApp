@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import Combine
 
 class ViewController: UIViewController {
+
+    private var tokens: Set<AnyCancellable> = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +61,15 @@ class ViewController: UIViewController {
                     print(error)
             }
         }
+
+        //Combine example
+        API.PetFinder.Routes.GetAnimals(animalType: .dog).future
+            .combineLatest(API.PetFinder.Routes.GetAnimals(animalType: .bird).future,
+                           API.PetFinder.Routes.GetAnimals(animalType: .cat).future)
+            .sink { result in
+                print(result) //prints out the result for all dogs, birds and cats
+            }
+            .store(in: &tokens)
     }
 
     private func setupUI() {
