@@ -30,7 +30,7 @@ extension API.PetFinder.Routes {
         }
 
         typealias ResponseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.ApiAccess, Models.PetFinder.ApiError>
-        let responseSerializationMode: NetworkingResponseSerializationMode = .standard(ResponseSerializer())
+        let responseSerializer = ResponseSerializer()
     }
 
     struct GetAnimals: PetFinderRoute {
@@ -45,7 +45,7 @@ extension API.PetFinder.Routes {
         }
         
         typealias ResponseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.GetAnimalsResponse, Models.PetFinder.ApiError>
-        let responseSerializationMode: NetworkingResponseSerializationMode = .standard(ResponseSerializer())
+        let responseSerializer = ResponseSerializer()
 
         enum AnimalType: String {
             case cat = "Cat"
@@ -63,7 +63,7 @@ extension API.PetFinder.Routes {
         let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
 
         typealias ResponseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.GetAnimalResponse, Models.PetFinder.ApiError>
-        let responseSerializationMode: NetworkingResponseSerializationMode = .standard(ResponseSerializer())
+        let responseSerializer = ResponseSerializer()
     }
 
     struct GetRandomAnimal: PetFinderRoute, DependentNetworkingRoute {
@@ -83,7 +83,7 @@ extension API.PetFinder.Routes {
         let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
 
         typealias ResponseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.GetAnimalResponse, Models.PetFinder.ApiError>
-        let responseSerializationMode: NetworkingResponseSerializationMode = .standard(ResponseSerializer())
+        let responseSerializer = ResponseSerializer()
 
         init(parentResponseModel: Models.PetFinder.GetAnimalsResponse, with requiredParams: Void? = nil) throws {
             guard let randomAnimalId = parentResponseModel.animals.randomElement()?.id else { throw GetRandomAnimalError.animalIdMissing }

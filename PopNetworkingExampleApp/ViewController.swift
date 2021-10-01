@@ -43,25 +43,6 @@ class ViewController: UIViewController {
             }
         }
 
-        API.Jokes.Routes.GetJoke(overrideResult: false).and(run: API.Jokes.Routes.GetJoke(overrideResult: false)) { aggregatedResult in
-            switch aggregatedResult {
-                case .success(let twoJokes):
-                    print(twoJokes)
-                case .failure(let error):
-                    print(error)
-            }
-        }
-
-        API.PetFinder.Routes.GetAnimals(animalType: .dog).andThen(run: API.PetFinder.Routes.GetRandomAnimal.self) { aggregatedResult in
-            switch aggregatedResult {
-                case .success(let dogsAndRandomDog):
-                    print("dog count: \(dogsAndRandomDog.0.animals.count)")
-                    print("random dog: \(dogsAndRandomDog.1)")
-                case .failure(let error):
-                    print(error)
-            }
-        }
-
         //Combine example
         API.PetFinder.Routes.GetAnimals(animalType: .dog).future
             .combineLatest(API.PetFinder.Routes.GetAnimals(animalType: .bird).future,
