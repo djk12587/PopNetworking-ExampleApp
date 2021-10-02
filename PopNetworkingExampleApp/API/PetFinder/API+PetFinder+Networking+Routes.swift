@@ -57,14 +57,4 @@ extension API.PetFinder.Routes {
         let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
         let responseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.GetAnimalResponse, Models.PetFinder.ApiError>()
     }
-
-    struct GetRandomAnimal: PetFinderRoute {
-        let animalId: Int
-
-        var path: String { "/v2/animals/\(animalId)"}
-        let method: NetworkingRouteHttpMethod = .get
-        let requiresAuthentication = true
-        let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
-        let responseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.GetAnimalResponse, Models.PetFinder.ApiError>()
-    }
 }

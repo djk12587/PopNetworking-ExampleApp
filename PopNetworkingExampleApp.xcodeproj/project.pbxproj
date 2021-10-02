@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF7B75A62708F83D00A3DC11 /* PopNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = AF7B75A52708F83D00A3DC11 /* PopNetworking */; };
 		E07A5F1225D9C5B2008AC835 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F1125D9C5B2008AC835 /* AppDelegate.swift */; };
 		E07A5F1425D9C5B2008AC835 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F1325D9C5B2008AC835 /* SceneDelegate.swift */; };
 		E07A5F1625D9C5B2008AC835 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F1525D9C5B2008AC835 /* ViewController.swift */; };
 		E07A5F1B25D9C5B4008AC835 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E07A5F1A25D9C5B4008AC835 /* Assets.xcassets */; };
 		E07A5F1E25D9C5B4008AC835 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E07A5F1C25D9C5B4008AC835 /* LaunchScreen.storyboard */; };
-		E07A5F2825D9C780008AC835 /* PopNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = E07A5F2725D9C780008AC835 /* PopNetworking */; };
 		E07A5F2C25D9C7BF008AC835 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F2B25D9C7BF008AC835 /* API.swift */; };
 		E07A5F3125D9C819008AC835 /* API+PetFinder+NetworkingRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F3025D9C819008AC835 /* API+PetFinder+NetworkingRoute.swift */; };
 		E07A5F3925D9C9D8008AC835 /* Models+PetFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F3825D9C9D8008AC835 /* Models+PetFinder.swift */; };
@@ -52,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E07A5F2825D9C780008AC835 /* PopNetworking in Frameworks */,
+				AF7B75A62708F83D00A3DC11 /* PopNetworking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,7 +156,7 @@
 			);
 			name = PopNetworkingExampleApp;
 			packageProductDependencies = (
-				E07A5F2725D9C780008AC835 /* PopNetworking */,
+				AF7B75A52708F83D00A3DC11 /* PopNetworking */,
 			);
 			productName = howToUse;
 			productReference = E07A5F0E25D9C5B2008AC835 /* PopNetworkingExampleApp.app */;
@@ -186,7 +186,7 @@
 			);
 			mainGroup = E07A5F0525D9C5B2008AC835;
 			packageReferences = (
-				E07A5F2625D9C780008AC835 /* XCRemoteSwiftPackageReference "PopNetworking" */,
+				AF7B75A42708F83D00A3DC11 /* XCRemoteSwiftPackageReference "PopNetworking" */,
 			);
 			productRefGroup = E07A5F0F25D9C5B2008AC835 /* Products */;
 			projectDirPath = "";
@@ -423,7 +423,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E07A5F2625D9C780008AC835 /* XCRemoteSwiftPackageReference "PopNetworking" */ = {
+		AF7B75A42708F83D00A3DC11 /* XCRemoteSwiftPackageReference "PopNetworking" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/djk12587/PopNetworking";
 			requirement = {
@@ -434,9 +434,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E07A5F2725D9C780008AC835 /* PopNetworking */ = {
+		AF7B75A52708F83D00A3DC11 /* PopNetworking */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E07A5F2625D9C780008AC835 /* XCRemoteSwiftPackageReference "PopNetworking" */;
+			package = AF7B75A42708F83D00A3DC11 /* XCRemoteSwiftPackageReference "PopNetworking" */;
 			productName = PopNetworking;
 		};
 /* End XCSwiftPackageProductDependency section */
