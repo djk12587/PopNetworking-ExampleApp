@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
 
-        API.Jokes.Routes.GetJoke(overrideResult: true).request { result in
+        API.Jokes.Routes.GetJoke().request { result in
             switch result {
                 case .success(let joke):
                     print(joke)

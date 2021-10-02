@@ -18,23 +18,16 @@ extension API.Jokes {
 
 extension API.Jokes.Routes {
     struct GetJoke: JokesRoute {
-
         let path = "/jokes/random"
         let method: NetworkingRouteHttpMethod = .get
         let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
-
-        let overrideResult: Bool
-
-        typealias ResponseSerializer = NetworkingResponseSerializers.DecodableResponseSerializer<Models.Jokes.Joke>
-        var responseSerializer = ResponseSerializer()
+        let responseSerializer = NetworkingResponseSerializers.DecodableResponseSerializer<Models.Jokes.Joke>()
     }
 
     struct GetTenJokes: JokesRoute {
         let path = "/jokes/ten"
         let method: NetworkingRouteHttpMethod = .get
         let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
-
-        typealias ResponseSerializer = NetworkingResponseSerializers.DecodableResponseSerializer<[Models.Jokes.Joke]>
-        var responseSerializer = ResponseSerializer()
+        let responseSerializer = NetworkingResponseSerializers.DecodableResponseSerializer<[Models.Jokes.Joke]>()
     }
 }
