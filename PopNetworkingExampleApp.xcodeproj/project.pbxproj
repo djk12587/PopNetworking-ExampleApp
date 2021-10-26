@@ -428,7 +428,7 @@
 			repositoryURL = "https://github.com/djk12587/PopNetworking";
 			requirement = {
 				kind = exactVersion;
-				version = 1.0.3;
+				version = 1.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

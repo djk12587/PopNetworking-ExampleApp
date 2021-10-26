@@ -22,12 +22,22 @@ extension API.PetFinder.Routes {
         let path = "/v2/oauth2/token"
         let method: NetworkingRouteHttpMethod = .post
         let requiresAuthentication = false
+
         var parameterEncoding: NetworkingRequestParameterEncoding {
             .url(params: ["grant_type" : "client_credentials",
                           "client_id" : "B5JZpOg8HskUlBY3WdioJ4yr6EBI3VUvQYpPs9DuLuznGQJUr1",
                           "client_secret" : "cfrjhisHn4akQLq1slGMg5kMViXmyvrH0RDvnoht"])
         }
-        let responseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.ApiAccess, Models.PetFinder.ApiError>()
+
+        var responseSerializer: NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.ApiAccess, Models.PetFinder.ApiError> {
+            let jsonDecoder = JSONDecoder()
+            jsonDecoder.dateDecodingStrategy = .custom({ decoder in
+                let container = try decoder.singleValueContainer()
+                let expiresIn = try container.decode(Int.self)
+                return Date(timeIntervalSinceNow: Double(expiresIn))
+            })
+            return NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.ApiAccess, Models.PetFinder.ApiError>(jsonDecoder: jsonDecoder)
+        }
     }
 
     struct GetAnimals: PetFinderRoute {
