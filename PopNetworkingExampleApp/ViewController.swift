@@ -34,7 +34,7 @@ class ViewController: UIViewController {
             }
         }
 
-        //ViewDidLoad isnt an async function so all async operations need to be wrappedin a Task
+        //ViewDidLoad isnt an async function so all async operations need to be wrapped in a Task
         Task {
             switch await API.PetFinder.Routes.GetAnimals(animalType: .dog).asyncTask.result {
                 case .success(let dogs):
