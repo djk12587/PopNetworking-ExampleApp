@@ -37,21 +37,19 @@ extension API.PetFinder {
             urlRequest.allHTTPHeaderFields?["Authorization"] = "\(serverAuthentication.tokenType) \(serverAuthentication.accessToken)"
         }
 
-        func shouldReauthenticate(urlRequest: URLRequest, dueTo error: Error, urlResponse: HTTPURLResponse, retryCount: Int) -> Bool {
-            let requestIsUnauthorized = urlResponse.statusCode == 401 || (error as? PetFinderAccessTokenError) == .accessTokenIsInvalid
+        func shouldReauthenticate(urlRequest: URLRequest?, dueTo error: Error, urlResponse: HTTPURLResponse?, retryCount: Int) -> Bool {
+            let requestIsUnauthorized = urlResponse?.statusCode == 401 || (error as? PetFinderAccessTokenError) == .accessTokenIsInvalid
             return requestIsUnauthorized && retryCount < 3
         }
 
-        func reauthenticationCompleted(result: Result<Models.PetFinder.ApiAccess, Error>,
-                                       finishedProcessingResult: @escaping () -> Void) {
+        func saveReauthentication(result: Result<Models.PetFinder.ApiAccess, Error>) async -> Bool {
             switch result {
                 case .success(let authorizationModel):
                     API.PetFinder.StoredApiAccess.apiAccess = authorizationModel
                 case .failure(let error):
                     print("reauthentication failure reason: \(error)")
             }
-
-            finishedProcessingResult()
+            return true
         }
     }
 }

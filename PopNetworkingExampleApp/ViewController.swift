@@ -25,15 +25,6 @@ class ViewController: UIViewController {
             }
         }
 
-        API.Jokes.Routes.GetTenJokes().request { result in
-            switch result {
-                case .success(let jokes):
-                    print(jokes)
-                case .failure(let error):
-                    print(error)
-            }
-        }
-
         API.PetFinder.Routes.GetAnimals(animalType: .bird).request { result in
             switch result {
                 case .success(let birds):
@@ -43,10 +34,33 @@ class ViewController: UIViewController {
             }
         }
 
+        //ViewDidLoad isnt an async function so all async operations need to be wrappedin a Task
+        Task {
+            switch await API.PetFinder.Routes.GetAnimals(animalType: .dog).asyncTask.result {
+                case .success(let dogs):
+                    print(dogs)
+                case .failure(let error):
+                    print(error)
+            }
+        }
+
+        Task {
+            let dogs = try await API.PetFinder.Routes.GetAnimals(animalType: .dog).asyncTask.value
+            print(dogs)
+        }
+
+        Task {
+            async let cats = API.PetFinder.Routes.GetAnimals(animalType: .cat).asyncResult
+            async let dogs = API.PetFinder.Routes.GetAnimals(animalType: .dog).asyncResult
+            async let birds = API.PetFinder.Routes.GetAnimals(animalType: .bird).asyncResult
+            let allAnimals = await [cats, dogs, birds] //This runs all 3 requests in parallel
+            print(allAnimals)
+        }
+
         //Combine example
-        API.PetFinder.Routes.GetAnimals(animalType: .dog).future
-            .combineLatest(API.PetFinder.Routes.GetAnimals(animalType: .bird).future,
-                           API.PetFinder.Routes.GetAnimals(animalType: .cat).future)
+        API.PetFinder.Routes.GetAnimals(animalType: .cat).resultPublisher
+            .combineLatest(API.PetFinder.Routes.GetAnimals(animalType: .dog).resultPublisher,
+                           API.PetFinder.Routes.GetAnimals(animalType: .bird).resultPublisher)
             .sink { result in
                 print(result) //prints out the result for all dogs, birds and cats
             }
