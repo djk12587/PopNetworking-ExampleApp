@@ -20,14 +20,14 @@ extension API.Jokes.Routes {
     struct GetJoke: JokesRoute {
         let path = "/jokes/random"
         let method: NetworkingRouteHttpMethod = .get
-        let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
+        let parameterEncoding: NetworkingRequestParameterEncoding? = nil
         let responseSerializer = NetworkingResponseSerializers.DecodableResponseSerializer<Models.Jokes.Joke>()
     }
 
     struct GetTenJokes: JokesRoute {
         let path = "/jokes/ten"
         let method: NetworkingRouteHttpMethod = .get
-        let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
+        let parameterEncoding: NetworkingRequestParameterEncoding? = nil
         let responseSerializer = NetworkingResponseSerializers.DecodableResponseSerializer<[Models.Jokes.Joke]>()
     }
 }

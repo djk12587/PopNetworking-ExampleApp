@@ -36,7 +36,7 @@ class ViewController: UIViewController {
 
         //ViewDidLoad isnt an async function so all async operations need to be wrapped in a Task
         Task {
-            switch await API.PetFinder.Routes.GetAnimals(animalType: .dog).task.result {
+            switch await API.PetFinder.Routes.GetAnimals(animalType: .dog).task().result {
                 case .success(let dogs):
                     print(dogs)
                 case .failure(let error):
@@ -45,7 +45,7 @@ class ViewController: UIViewController {
         }
 
         Task {
-            let dogs = try await API.PetFinder.Routes.GetAnimals(animalType: .dog).task.value
+            let dogs = try await API.PetFinder.Routes.GetAnimals(animalType: .dog).task().value
             print(dogs)
         }
 

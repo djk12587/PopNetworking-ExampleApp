@@ -23,7 +23,7 @@ extension API.PetFinder.Routes {
         let method: NetworkingRouteHttpMethod = .post
         let requiresAuthentication = false
 
-        var parameterEncoding: NetworkingRequestParameterEncoding {
+        var parameterEncoding: NetworkingRequestParameterEncoding? {
             .url(params: ["grant_type" : "client_credentials",
                           "client_id" : "B5JZpOg8HskUlBY3WdioJ4yr6EBI3VUvQYpPs9DuLuznGQJUr1",
                           "client_secret" : "cfrjhisHn4akQLq1slGMg5kMViXmyvrH0RDvnoht"])
@@ -46,7 +46,7 @@ extension API.PetFinder.Routes {
         let path = "/v2/animals"
         let method: NetworkingRouteHttpMethod = .get
         let requiresAuthentication = true
-        var parameterEncoding: NetworkingRequestParameterEncoding {
+        var parameterEncoding: NetworkingRequestParameterEncoding? {
             .url(params: ["type" : animalType.rawValue])
         }
         let responseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.GetAnimalsResponse, Models.PetFinder.ApiError>()
@@ -64,7 +64,7 @@ extension API.PetFinder.Routes {
         var path: String { "/v2/animals/\(animalId)"}
         let method: NetworkingRouteHttpMethod = .get
         let requiresAuthentication = true
-        let parameterEncoding: NetworkingRequestParameterEncoding = .url(params: nil)
+        let parameterEncoding: NetworkingRequestParameterEncoding? = nil
         let responseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.GetAnimalResponse, Models.PetFinder.ApiError>()
     }
 }
