@@ -25,8 +25,8 @@ extension API.PetFinder.Routes {
 
         var parameterEncoding: NetworkingRequestParameterEncoding? {
             .url(params: ["grant_type" : "client_credentials",
-                          "client_id" : "B5JZpOg8HskUlBY3WdioJ4yr6EBI3VUvQYpPs9DuLuznGQJUr1",
-                          "client_secret" : "cfrjhisHn4akQLq1slGMg5kMViXmyvrH0RDvnoht"])
+                          "client_id" : "C8AyYGAfbPPZ084CwurANYcVI8G3mbyZ8jW6TAMY7O4ZNETjX6",
+                          "client_secret" : "g4fSDxEYpOW8g2620lUMYXHyt0nqRfD4J4vE5mEk"])
         }
 
         var responseSerializer: NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.ApiAccess, Models.PetFinder.ApiError> {
