@@ -16,6 +16,6 @@ extension API.PetFinder.Session {
 
     ///Use this NetworkingSession for any PetFinder endpoints that require authentication
     static let authenticationSession: NetworkingSession = {
-        return NetworkingSession(requestInterceptor: PetFinderReauthenticationHandler())
+        return NetworkingSession(interceptor: PetFinderReauthenticationHandler())
     }()
 }

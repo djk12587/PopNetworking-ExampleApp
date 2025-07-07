@@ -8,9 +8,8 @@
 import Foundation
 import PopNetworking
 
-///https://github.com/15Dkatz/official_joke_api `||` https://karljoke.herokuapp.com/
 protocol JokesRoute: NetworkingRoute {}
 
 extension JokesRoute {
-    var baseUrl: String { "https://karljoke.herokuapp.com" }
+    var baseUrl: String { "https://official-joke-api.appspot.com" }
 }

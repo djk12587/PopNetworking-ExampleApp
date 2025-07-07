@@ -25,18 +25,18 @@ extension API.PetFinder.Routes {
 
         var parameterEncoding: NetworkingRequestParameterEncoding? {
             .url(params: ["grant_type" : "client_credentials",
-                          "client_id" : "C8AyYGAfbPPZ084CwurANYcVI8G3mbyZ8jW6TAMY7O4ZNETjX6",
-                          "client_secret" : "g4fSDxEYpOW8g2620lUMYXHyt0nqRfD4J4vE5mEk"])
+                          "client_id" : "FfGxWGrneKMaCIggH0BHnCX6JwBt2JoR0TJvDz5oFpef6chyV4",
+                          "client_secret" : "eBNUdOzchjAYxPTd1Ec8w9GESW69G3LoX1al7HlF"])
         }
 
-        var responseSerializer: NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.ApiAccess, Models.PetFinder.ApiError> {
+        var responseSerializer: NetworkingResponseSerializers.DecodableResponseAndErrorSerializer<Models.PetFinder.ApiAccess, Models.PetFinder.ApiError> {
             let jsonDecoder = JSONDecoder()
             jsonDecoder.dateDecodingStrategy = .custom({ decoder in
                 let container = try decoder.singleValueContainer()
                 let expiresIn = try container.decode(Int.self)
                 return Date(timeIntervalSinceNow: Double(expiresIn))
             })
-            return NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.ApiAccess, Models.PetFinder.ApiError>(jsonDecoder: jsonDecoder)
+            return NetworkingResponseSerializers.DecodableResponseAndErrorSerializer<Models.PetFinder.ApiAccess, Models.PetFinder.ApiError>(jsonDecoder: jsonDecoder)
         }
     }
 
@@ -49,7 +49,7 @@ extension API.PetFinder.Routes {
         var parameterEncoding: NetworkingRequestParameterEncoding? {
             .url(params: ["type" : animalType.rawValue])
         }
-        let responseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.GetAnimalsResponse, Models.PetFinder.ApiError>()
+        let responseSerializer = NetworkingResponseSerializers.DecodableResponseAndErrorSerializer<Models.PetFinder.GetAnimalsResponse, Models.PetFinder.ApiError>()
 
         enum AnimalType: String {
             case cat = "Cat"
@@ -65,6 +65,6 @@ extension API.PetFinder.Routes {
         let method: NetworkingRouteHttpMethod = .get
         let requiresAuthentication = true
         let parameterEncoding: NetworkingRequestParameterEncoding? = nil
-        let responseSerializer = NetworkingResponseSerializers.DecodableResponseWithErrorSerializer<Models.PetFinder.GetAnimalResponse, Models.PetFinder.ApiError>()
+        let responseSerializer = NetworkingResponseSerializers.DecodableResponseAndErrorSerializer<Models.PetFinder.GetAnimalResponse, Models.PetFinder.ApiError>()
     }
 }

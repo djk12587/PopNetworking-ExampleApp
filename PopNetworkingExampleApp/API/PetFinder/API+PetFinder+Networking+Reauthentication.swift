@@ -21,37 +21,37 @@ extension PetFinderReauthenticationHandler {
     }
 }
 
-public actor PetFinderReauthenticationHandler: NetworkingRequestInterceptor {
+public actor PetFinderReauthenticationHandler: NetworkingInterceptor {
 
     private let reauthenticationRoute = API.PetFinder.Routes.Authenticate()
-    private var activeReauthenticationTask: Task<NetworkingRequestRetrierResult, Never>?
+    private var activeReauthenticationTask: Task<NetworkingRetrierResult, Never>?
 
     // MARK: - RequestAdapter
 
-    public func adapt(urlRequest: URLRequest) throws -> URLRequest {
+    public func adapt(urlRequest: URLRequest) async throws -> URLRequest {
         guard isAuthorizationRequired(for: urlRequest) else { return urlRequest }
 
-        try validateAccessToken()
+        try await validateAccessToken()
 
-        if isAuthorizationValid(for: urlRequest) {
+        if await isAuthorizationValid(for: urlRequest) {
             return urlRequest
         }
 
         var urlRequest = urlRequest
-        try setAuthorization(for: &urlRequest)
+        try await setAuthorization(for: &urlRequest)
         return urlRequest
     }
 
     // MARK: - RequestRetrier
 
     public func retry(urlRequest: URLRequest?,
-                      dueTo error: Error,
-                      urlResponse: HTTPURLResponse?,
-                      retryCount: Int) async -> NetworkingRequestRetrierResult {
-        let reauthorizationResult = shouldReauthenticate(urlRequest: urlRequest,
-                                                         dueTo: error,
-                                                         urlResponse: urlResponse,
-                                                         retryCount: retryCount)
+                      dueTo error: any Error,
+                      urlResponse: URLResponse?,
+                      retryCount: Int) async -> NetworkingRetrierResult {
+        let reauthorizationResult = await shouldReauthenticate(urlRequest: urlRequest,
+                                                               dueTo: error,
+                                                               urlResponse: urlResponse,
+                                                               retryCount: retryCount)
         switch reauthorizationResult {
             case .refreshAuthorization:
                 return await reauthenticate()
@@ -62,7 +62,7 @@ public actor PetFinderReauthenticationHandler: NetworkingRequestInterceptor {
         }
     }
 
-    private func reauthenticate() async -> NetworkingRequestRetrierResult {
+    private func reauthenticate() async -> NetworkingRetrierResult {
 
         if let activeReauthenticationTask = activeReauthenticationTask, !activeReauthenticationTask.isCancelled {
             return await activeReauthenticationTask.value
@@ -74,7 +74,7 @@ public actor PetFinderReauthenticationHandler: NetworkingRequestInterceptor {
         }
     }
 
-    private func createReauthenticationTask() -> Task<NetworkingRequestRetrierResult, Never> {
+    private func createReauthenticationTask() -> Task<NetworkingRetrierResult, Never> {
         Task {
             defer { activeReauthenticationTask = nil }
 
@@ -97,12 +97,11 @@ extension PetFinderReauthenticationHandler {
         case accessTokenIsInvalid
     }
 
-    private var serverAuthentication: Models.PetFinder.ApiAccess { API.PetFinder.StoredApiAccess.apiAccess }
-    private var tokenIsExpired: Bool { serverAuthentication.expiration.compare(Date()) == .orderedAscending }
+    private var serverAuthentication: Models.PetFinder.ApiAccess { get async { await API.PetFinder.StoredApiAccess.Shared.instance.access } }
+    private var tokenIsExpired: Bool { get async { await serverAuthentication.expiration.compare(Date()) == .orderedAscending } }
 
-
-    func validateAccessToken() throws {
-        if tokenIsExpired {
+    func validateAccessToken() async throws {
+        if await tokenIsExpired {
             throw PetFinderAccessTokenError.accessTokenIsInvalid
         }
     }
@@ -111,26 +110,34 @@ extension PetFinderReauthenticationHandler {
         return true
     }
 
-    func isAuthorizationValid(for urlRequest: URLRequest) -> Bool {
-        urlRequest.allHTTPHeaderFields?["Authorization"] == "\(serverAuthentication.tokenType) \(serverAuthentication.accessToken)"
+    func isAuthorizationValid(for urlRequest: URLRequest) async -> Bool {
+        urlRequest.allHTTPHeaderFields?["Authorization"] == "\(await serverAuthentication.tokenType) \(await serverAuthentication.accessToken)"
     }
 
-    func setAuthorization(for urlRequest: inout URLRequest) throws {
-        urlRequest.allHTTPHeaderFields?["Authorization"] = "\(serverAuthentication.tokenType) \(serverAuthentication.accessToken)"
+    func setAuthorization(for urlRequest: inout URLRequest) async throws {
+        urlRequest.allHTTPHeaderFields?["Authorization"] = "\(await serverAuthentication.tokenType) \(await serverAuthentication.accessToken)"
     }
 
-    func shouldReauthenticate(urlRequest: URLRequest?, dueTo error: Error, urlResponse: HTTPURLResponse?, retryCount: Int) -> ReauthorizationMethod {
-        let requestIsUnauthorized = urlResponse?.statusCode == 401 || (error as? PetFinderAccessTokenError) == .accessTokenIsInvalid
-        return requestIsUnauthorized && retryCount < 3 ? .refreshAuthorization : .doNothing
+    func shouldReauthenticate(urlRequest: URLRequest?, dueTo error: Error, urlResponse: URLResponse?, retryCount: Int) async -> ReauthorizationMethod {
+        let requestIsUnauthorized = (urlResponse as? HTTPURLResponse)?.statusCode == 401 || (error as? PetFinderAccessTokenError) == .accessTokenIsInvalid
+        let requestAuthDoesNotMatchCurrentAuth = urlRequest?.allHTTPHeaderFields?["Authorization"]?.contains(await API.PetFinder.StoredApiAccess.Shared.instance.access.accessToken) == false
+        if requestAuthDoesNotMatchCurrentAuth {
+            return .retryRequest
+        } else if requestIsUnauthorized && retryCount < 3 {
+            return .refreshAuthorization
+        } else {
+            return .doNothing
+        }
     }
 
     func saveReauthentication(result: Result<Models.PetFinder.ApiAccess, Error>) async -> Bool {
         switch result {
-            case .success(let authorizationModel):
-                API.PetFinder.StoredApiAccess.apiAccess = authorizationModel
+            case .success(let updatedAuthorization):
+                await APIAccessActor.run { API.PetFinder.StoredApiAccess.Shared.instance.access = updatedAuthorization }
+            return true
             case .failure(let error):
                 print("reauthentication failure reason: \(error)")
+            return false
         }
-        return true
     }
 }

@@ -18,13 +18,15 @@ extension PetFinderRoute {
     var baseUrl: String { "https://api.petfinder.com" }
 
     var headers: NetworkingRouteHttpHeaders? {
-        guard requiresAuthentication else { return nil }
+        get async {
+            guard requiresAuthentication else { return nil }
 
-        let storedAccess = API.PetFinder.StoredApiAccess.apiAccess
-        return ["Authorization" : "\(storedAccess.tokenType) \(storedAccess.accessToken)" ]
+            let storedAccess = await API.PetFinder.StoredApiAccess.Shared.instance.access
+            return ["Authorization" : "\(storedAccess.tokenType) \(storedAccess.accessToken)" ]
+        }
     }
 
-    var session: NetworkingSession {
+    var session: any NetworkingSessionProtocol {
         if requiresAuthentication {
             return API.PetFinder.Session.authenticationSession
         }
