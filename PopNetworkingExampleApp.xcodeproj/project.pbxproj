@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF7B75A62708F83D00A3DC11 /* PopNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = AF7B75A52708F83D00A3DC11 /* PopNetworking */; };
+		E0638C4F2E203B7C006AE42F /* PopNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = E0638C4E2E203B7C006AE42F /* PopNetworking */; };
 		E07A5F1225D9C5B2008AC835 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F1125D9C5B2008AC835 /* AppDelegate.swift */; };
 		E07A5F1425D9C5B2008AC835 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F1325D9C5B2008AC835 /* SceneDelegate.swift */; };
 		E07A5F1625D9C5B2008AC835 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A5F1525D9C5B2008AC835 /* ViewController.swift */; };
@@ -52,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF7B75A62708F83D00A3DC11 /* PopNetworking in Frameworks */,
+				E0638C4F2E203B7C006AE42F /* PopNetworking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,7 +156,7 @@
 			);
 			name = PopNetworkingExampleApp;
 			packageProductDependencies = (
-				AF7B75A52708F83D00A3DC11 /* PopNetworking */,
+				E0638C4E2E203B7C006AE42F /* PopNetworking */,
 			);
 			productName = howToUse;
 			productReference = E07A5F0E25D9C5B2008AC835 /* PopNetworkingExampleApp.app */;
@@ -187,7 +187,7 @@
 			);
 			mainGroup = E07A5F0525D9C5B2008AC835;
 			packageReferences = (
-				AF7B75A42708F83D00A3DC11 /* XCRemoteSwiftPackageReference "PopNetworking" */,
+				E0638C4D2E203B7C006AE42F /* XCRemoteSwiftPackageReference "PopNetworking" */,
 			);
 			productRefGroup = E07A5F0F25D9C5B2008AC835 /* Products */;
 			projectDirPath = "";
@@ -430,7 +430,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		AF7B75A42708F83D00A3DC11 /* XCRemoteSwiftPackageReference "PopNetworking" */ = {
+		E0638C4D2E203B7C006AE42F /* XCRemoteSwiftPackageReference "PopNetworking" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/djk12587/PopNetworking";
 			requirement = {
@@ -441,9 +441,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AF7B75A52708F83D00A3DC11 /* PopNetworking */ = {
+		E0638C4E2E203B7C006AE42F /* PopNetworking */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AF7B75A42708F83D00A3DC11 /* XCRemoteSwiftPackageReference "PopNetworking" */;
+			package = E0638C4D2E203B7C006AE42F /* XCRemoteSwiftPackageReference "PopNetworking" */;
 			productName = PopNetworking;
 		};
 /* End XCSwiftPackageProductDependency section */
